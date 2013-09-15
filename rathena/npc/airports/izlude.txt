@@ -15,17 +15,17 @@
 -	script	::Airship_Staff_izlude	-1,{
 	mes gettext("[Airship Staff]");
 	mes gettext("Welcome! Would you like\n" +
-	"to board the Airship that\n" +
-	"departs on the flight wich stops\n" +
-	"in Juno and Rachel?");
+		"to board the Airship that\n" +
+		"departs on the flight wich stops\n" +
+		"in Juno and Rachel?");
 	next;
 	if (select(gettext("Board the Airship to Juno/Rachel.") + ":" + gettext("Cancel.")) == 1) {
 		mes gettext("[Airship Staff]");
 		mes gettext("The boarding fee is\n" +
-		"1,200 zeny. However, this\n" +
-		"charged is waived if you use\n" +
-		"a Free Ticket for Airship. Now,\n" +
-		"would you still like to board?");
+			"1,200 zeny. However, this\n" +
+			"charged is waived if you use\n" +
+			"a Free Ticket for Airship. Now,\n" +
+			"would you still like to board?");
 		next;
 		if (select(gettext("Yes") + ":" + gettext("No")) == 1) {
 			if (countitem(7311) > 0) {
@@ -40,14 +40,14 @@
 			}
 			mes gettext("[Airship Staff]");
 			mes gettext("I'm sorry, but you don't\n" +
-			"have 1,200 zeny to pay\n" +
-			"for the boarding fee.");
+				"have 1,200 zeny to pay\n" +
+				"for the boarding fee.");
 			close;
 		}
 	}
 	mes gettext("[Airship Staff]");
 	mes gettext("Thank you and\n" +
-	"please come again.\n" +
-	"Have a good day~");
+		"please come again.\n" +
+		"Have a good day~");
 	close;
 }
