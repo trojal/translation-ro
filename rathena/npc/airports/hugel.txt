@@ -1,0 +1,38 @@
+//===== rAthena Script ======================================= 
+//= Hugel Airport NPCs
+//===== By: ================================================== 
+//= rAthena Dev Team
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: ===================================== 
+//= rAthena SVN
+//===== Description: ========================================= 
+//= Hugel Airport NPCs
+//===== Additional Comments: ================================= 
+//= 1.0 First version.
+//============================================================ 
+
+hugel,178,142,0	script	toairplane#hugel	45,1,1,{
+	end;
+OnTouch:
+	mes ngettext("To use the airship, you are required to pay %d zeny or a Free Airship Ticket.", 1200);
+	mes gettext("Would you like to use the service?");
+	next;
+	if (select(gettext("Yes") + ":" + gettext("No")) == 1) {
+		if (countitem(7311) > 0) {
+			delitem 7311,1; //Free_Flying_Ship_Ticket
+			warp "airplane",244,58;
+			end;
+		}
+		if (Zeny >= 1200) {
+			set Zeny, Zeny - 1200;
+			warp "airplane",244,58;
+			end;
+		}
+		mes gettext("I am sorry, but you do not have enough money.");
+		mes ngettext("Please remember, you are required to pay %d zeny to use the service.", 1200);
+		close;
+	}
+	mes gettext("Thank you, please come again.");
+	close;
+}

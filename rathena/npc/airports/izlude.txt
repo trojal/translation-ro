@@ -1,0 +1,43 @@
+//===== rAthena Script ======================================= 
+//= Izlude Airport NPCs
+//===== By: ================================================== 
+//= rAthena Dev Team
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: ===================================== 
+//= rAthena SVN
+//===== Description: ========================================= 
+//= Izlude Airport NPCs
+//===== Additional Comments: ================================= 
+//= 1.0 First version.
+//============================================================ 
+
+-	script	::Airship_Staff_izlude	-1,{
+	mes gettext("[Airship Staff]");
+	mes gettext("Welcome! Would you like to board the Airship that departs on the flight which stops in Juno and Rachel?");
+	next;
+	if (select(gettext("Board the Airship to Juno/Rachel.") + ":" + gettext("Cancel.")) == 1) {
+		mes gettext("[Airship Staff]");
+		mes ngettext("The boarding fee is %d zeny. However, this charge is waived if you use a Free Ticket for Airship. Now, would you still like to board?", 1200);
+		next;
+		if (select(gettext("Yes") + ":" + gettext("No")) == 1) {
+			if (countitem(7311) > 0) {
+				delitem 7311,1; //Free_Flying_Ship_Ticket
+				warp "airplane_01",244,58;
+				end;
+			}
+			if (Zeny >= 1200) {
+				set Zeny, Zeny - 1200;
+				warp "airplane_01",244,58;
+				end;
+			}
+			mes gettext("[Airship Staff]");
+			mes ngettext("I'm sorry, but you don't have %d zeny to pay for the boarding fee.", 1200);
+			close;
+		}
+	}
+	mes gettext("[Airship Staff]");
+	mes gettext("Thank you and please come again.");
+	mes gettext("Have a good day~");
+	close;
+}
