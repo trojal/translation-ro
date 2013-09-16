@@ -1,0 +1,1504 @@
+//===== rAthena Script ======================================= 
+//= The Airship System Script
+//===== By: ================================================== 
+//= rAthena Dev Team
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: ===================================== 
+//= rAthena SVN
+//===== Description: ========================================= 
+//= The Airship System used in the official servers.
+//===== Additional Comments: ================================= 
+//= 1.0 First version.
+//============================================================ 
+
+//============================================================ 
+//= Domestic Airship Route
+//= ... -> Juno -> Einbroch -> Lighthalzen -> Einbroch
+//= -> Juno -> Hugel -> ...
+//============================================================ 
+
+airplane,243,73,0	script	#AirshipWarp-1	45,1,1,{
+	end;
+
+OnInit:
+OnHide:
+	specialeffect EF_BASH;
+	disablenpc strnpcinfo(0);
+	end;
+
+OnUnhide:
+	enablenpc strnpcinfo(0);
+	specialeffect EF_SUMMONSLAVE;
+	end;
+
+OnTouch:
+	switch ($@airplanelocation) {
+	case 0: warp "yuno",92,260; end;
+	case 1: warp "einbroch",92,278; end;
+	case 2: warp "lighthalzen",302,75; end;
+	case 3: warp "hugel",181,146; end;
+	}
+}
+
+airplane,243,29,0	duplicate(#AirshipWarp-1)	#AirshipWarp-2	45,1,1
+
+airplane,1,1,0	script	Domestic_Airship	-1,{
+	end;
+OnInit:
+	initnpctimer;
+	end;
+OnTimer20000:
+	mapannounce "airplane",gettext("We are heading to Einbroch."),bc_map,"0x00ff00";
+	end;
+OnTimer50000:
+	mapannounce "airplane",gettext("We will arrive in Einbroch shortly."),bc_map,"0x00ff00";
+	end;
+OnTimer60000:
+	set $@airplanelocation,1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane",gettext("Welcome to Einbroch. Have a safe trip."),bc_map,"0x00ff00";
+	end;
+OnTimer70000:
+	mapannounce "airplane",gettext("Currently we are in Einbroch. The Airship will take off shortly."),bc_map,"0x00ff00";
+	end;
+OnTimer80000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane",gettext("The Airship is now taking off. Our next destination is Lighthalzen."),bc_map,"0x70dbdb";
+	end;
+OnTimer100000:
+	mapannounce "airplane",gettext("We are heading to Lighthalzen."),bc_map,"0x70dbdb";
+	end;
+OnTimer130000:
+	mapannounce "airplane",gettext("We will arrive in Lighthalzen shortly."),bc_map,"0x70dbdb";
+	end;
+OnTimer140000:
+	set $@airplanelocation,2;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane",gettext("Welcome to Lighthalzen. Have a safe trip."),bc_map,"0x70dbdb";
+	end;
+OnTimer150000:
+	mapannounce "airplane",gettext("Currently we are in Lighthalzen. The Airship will leave shortly."),bc_map,"0x70dbdb";
+	end;
+OnTimer160000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane",gettext("The Airship is leaving the ground. Our next destination is Einbroch."),bc_map,"0x00ff00";
+	end;
+OnTimer180000:
+	mapannounce "airplane",gettext("We are heading to Einbroch."),bc_map,"0x00ff00";
+	end;
+OnTimer210000:
+	mapannounce "airplane",gettext("We will arrive in Einbroch shortly."),bc_map,"0x00FF00";
+	end;
+OnTimer220000:
+	set $@airplanelocation,1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane",gettext("Welcome to Einbroch. Have a safe trip."),bc_map,"0x00ff00";
+	end;
+OnTimer230000:
+	mapannounce "airplane",gettext("Currently we are in Einbroch. The Airship will take off shortly."),bc_map,"0x00ff00";
+	end;
+OnTimer240000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane",gettext("The Airship is now taking off. Our next destination is Juno."),bc_map,"0xff8200";
+	end;
+OnTimer260000:
+	mapannounce "airplane",gettext("We are heading to Juno."),bc_map,"0xff8200";
+	end;
+OnTimer290000:
+	mapannounce "airplane",gettext("We will arrive in Juno shortly."),bc_map,"0xff8200";
+	end;
+OnTimer300000:
+	set $@airplanelocation,0;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane",gettext("Welcome to Juno. Have a safe trip."),bc_map,"0xff8200";
+	end;
+OnTimer310000:
+	mapannounce "airplane",gettext("Currently we are in Juno. The Airship will leave shortly."),bc_map,"0xff8200";
+	end;
+OnTimer320000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane",gettext("The Airship is leaving the ground. Our next destination is Hugel."),bc_map,"0xca4bf3";
+	end;
+OnTimer340000:
+	mapannounce "airplane",gettext("We are heading to Hugel."),bc_map,"0xca4bf3";
+	end;
+OnTimer370000:
+	mapannounce "airplane",gettext("We will arrive in Hugel shortly."),bc_map,"0xca4bf3";
+	end;
+OnTimer380000:
+	set $@airplanelocation,3;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane",gettext("Welcome to Hugel. Have a safe trip."),bc_map,"0xca4bf3";
+	end;
+OnTimer390000:
+	mapannounce "airplane",gettext("Currently we are in Hugel. The Airship will leave shortly."),bc_map,"0xca4bf3";
+	end;
+OnTimer400000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane",gettext("The Airship is leaving the ground. Our next destination is Juno."),bc_map,"0xff8200";
+	end;
+OnTimer420000:
+	mapannounce "airplane",gettext("We are heading to Juno."),bc_map,"0xff8200";
+	end;
+OnTimer450000:
+	mapannounce "airplane",gettext("We will arrive in Juno shortly."),bc_map,"0xff8200";
+	end;
+OnTimer460000:
+	set $@airplanelocation,0;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane",gettext("Welcome to Juno. Have a safe trip."),bc_map,"0xff8200";
+	end;
+OnTimer470000:
+	mapannounce "airplane",gettext("Currently we are in Juno. The Airship will leave shortly."),bc_map,"0xff8200";
+	end;
+OnTimer480000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane",gettext("The Airship is leaving the ground. Our next destination is Einbroch."),bc_map,"0x00ff00";
+	stopnpctimer;
+	initnpctimer;
+}
+
+airplane,240,64,5	script	Exit#airplane1a::ExitAirplane	857,{
+	end;
+}
+airplane,247,64,5	duplicate(ExitAirplane)	Exit#airplane1b	857
+airplane,240,40,1	duplicate(ExitAirplane)	Exit#airplane2a	857
+airplane,247,40,1	duplicate(ExitAirplane)	Exit#airplane2b	857
+
+airplane,100,69,3	script	Airship Crew#ein-1	852,{
+	mes gettext("[Airship Crew]\n"
+		"If we've landed at\n"
+		"your destination and\n"
+		"you'd like to leave the\n"
+		"Airship, please use the\n"
+		"stairs up ahead. Thank\n"
+		"you for your patronage.");
+	close;
+}
+
+airplane,64,94,1	script	Umbala Kid#ein_p	787,{
+	emotion e_swt2;
+	mes gettext("[Kid]");
+	if (event_umbala >= 3) {
+		mes gettext("Wow, mom!\n"
+			"L-look at this!\n"
+			"We're flying! W-we're...\n"
+			"We're in the freakin' sky!");
+	}
+	else {
+		mes gettext("Makumalagu!\n"
+			"Saampa joojimbo\n"
+			"kaku na jedi Solo.\n"
+			"Bwahahahahahahaah!");
+	}
+	close;
+}
+
+airplane,66,93,3	script	Umbala Lady#ein_p	783,{
+	emotion e_dots;
+	mes gettext("[Lady]");
+	if (event_umbala >= 3) {
+		mes gettext("Shush...\n"
+			"Honey, behave~\n"
+			"Don't act so excited\n"
+			"when we're out in a\n"
+			"public place like this!");
+	}
+	else {
+		mes gettext("Chooktu!\n"
+			"Sacraup matii!\n"
+			"Shaka gurftalfi\n"
+			"huntiki manjoo!");
+	}
+	close;
+}
+
+airplane,71,91,7	script	Umbala Man#ein_p	789,{
+	if (event_umbala >= 3) {
+		mes gettext("[Chrmlim]\n"
+			"Hey there~\n"
+			"From that look on\n"
+			"your face, I see that\n"
+			"you can understand\n"
+			"me. ^333333*Whew...!*^000000");
+		next;
+		emotion e_pif;
+		mes gettext("[Chrmlim]\n"
+			"I've been helping the\n"
+			"Airship enterprise by\n"
+			"having the Airship Crewmen\n"
+			"train in Umbala to overcome\n"
+			"any acrophobia they might have through bungee jumping. Neat, eh?");
+		next;
+		mes gettext("[Chrmlim]\n"
+			"But...\n"
+			"Some of them couldn't\n"
+			"overcome their fear of\n"
+			"heights. And a few even\n"
+			"ended up, um, ^333333in Nifflheim^000000.");
+	}
+	else {
+		mes gettext("[Chrmlim]\n"
+			"Bajoo ga\n"
+			"nukta Airship.");
+		next;
+		mes gettext("[Chrmlim]\n"
+			"...\n"
+			"......");
+		next;
+		emotion e_pif;
+		mes gettext("[Chrmlim]\n"
+			"Shabala moow bajama\n"
+			"Airship kulaha googoona \n"
+			"salu. Dama, kookoo na nu\n"
+			"yukuta. Um, fashuku na ret!");
+	}
+	close;
+}
+
+airplane,250,58,2	script	Airship Staff#airplane	67,{
+	// Hugel quest addition
+	if (hg_ma1 == 3) {
+		mes gettext("[Airship Staff]\n"
+			"Welcome\n"
+			"to the Airship.\n"
+			"How may I help you?");
+		next;
+		select(gettext("Do you have a passenger named Thierry?"));
+		mes gettext("[Airship Staff]\n"
+			"I am sorry, but I do not think that we have a passenger by that name.");
+		close;
+	}
+	// Hugel quest end
+	mes gettext("[Airship Staff]\n"
+		"Welcome\n"
+		"to the Airship.\n"
+		"How may I help you?");
+	next;
+	switch (select(gettext("Using the Airship:Captain's Cabin:Facilities:Cancel"))) {
+	case 1:
+		mes gettext("[Airship Staff]\n"
+			"When you see a broadcast\n"
+			"announcing that we have\n"
+			"arrived at your destination,\n"
+			"please use one of the exits\n"
+			"located at the north and\n"
+			"south ends of the Airship.");
+		next;
+		mes gettext("[Airship Staff]\n"
+			"If you happen to miss\n"
+			"your stop, don't worry.\n"
+			"The Airship is constantly\n"
+			"en route and you'll get\n"
+			"another chance to arrive\n"
+			"to your intended destination.");
+		close;
+	case 2:
+		mes gettext("[Airship Staff]\n"
+			"The Captain's Cabin\n"
+			"is located at the front\n"
+			"of the Airship. There, you\n"
+			"can meet the captain and\n"
+			"the pilot of the Airship.");
+		close;
+	case 3:
+		mes gettext("[Airship Staff]\n"
+			"The Airship provides\n"
+			"various Mini Games for\n"
+			"the entertainment of all\n"
+			"our passengers. We invite\n"
+			"you to try your luck and skills\n"
+			"in the Airship's Mini Games~");
+		close;
+	case 4:
+		mes gettext("[Airship Staff]\n"
+			"Well, I hope you\n"
+			"your flight aboard\n"
+			"our Airships. Thank\n"
+			"you and have a good day.");
+		close;
+	}
+}
+
+airplane,80,71,2	script	Zerta#01airplane	834,{
+	mes gettext("[Zerta]\n"
+		"Oh, hello adventurer.\n"
+		"I am currently on a\n"
+		"sacred journey, offering\n"
+		"prayer for the sake of the\n"
+		"Rune-Midgard continent.");
+	close;
+}
+
+airplane,65,63,4	script	Maelin#01airplane	714,{
+	mes gettext("[Maelin]\n"
+		"Um, this Airship is\n"
+		"to Lutie, isn't it? I've\n"
+		"waiting so long,\n"
+		"but I haven't heard any\n"
+		"broadcast about Lutie.");
+	close;
+}
+
+airplane,72,34,6	script	Aanos#01airplane	702,{
+	mes gettext("[Aanos]\n"
+		"Oh wooow~\n"
+		"The sky looks\n"
+		"so different and\n"
+		"pretty from up there!");
+	close;
+}
+
+airplane,221,158,2	script	Pilot#airplane	852,{
+	// Hugel quest addition
+	if (hg_ma1 == 3) {
+		mes gettext("[Pilot]\n"
+			"I wish that I could go drink a cold fresh beer.\n"
+			"Drinking is the goal of my life! Drinking gives me energy!\n"
+			"I am nothing without drinks!");
+		next;
+		mes gettext("[Pilot]\n"
+			"But! Driving under the influence is not good.\n"
+			"But! That makes me want to drink more and more!");
+		emotion e_sob;
+		next;
+		select(gettext("Do you know a passenger named Thierry?"));
+		mes gettext("[Pilot]\n"
+			"This uniform is\n"
+			"really dapper, but\n"
+			"it's way too thick to\n"
+			"wear around the Airship.");
+		next;
+		mes gettext("[Pilot]\n"
+			"...\n"
+			"......\n"
+			"No one ever really\n"
+			"comes into this room.\n"
+			"And the captain IS a reindeer.^FFFFFF ^000000 I could just strip to my boxers.");
+		next;
+		emotion e_omg;
+		mes gettext("[Pilot]\n"
+			"Wah!? Who is it!");
+		next;
+		mes gettext("- ...He is not listening to you, at all. -");
+		close;
+	}
+	// Hugel quest end
+	switch (rand(1,4)) {
+	case 1:
+		mes gettext("[Pilot]\n"
+			"It's been sooo\n"
+			"long since I've\n"
+			"enjoyed a nice, cold\n"
+			"alcoholic brew. But the\n"
+			"job requires me to be as\n"
+			"clear headed as I can!");
+		next;
+		mes gettext("[Pilot]\n"
+			"Always drink responsibly!\n"
+			"Still, I can't remember the\n"
+			"last time I had a real vacation\n"
+			"or even a day off. Yeap, some\n"
+			"booze, some chips, some TV\n"
+			"and serius R&R is in order.");
+		emotion e_sob;
+		close;
+	case 2:
+		mes gettext("[Pilot]\n"
+			"Man, the weather\n"
+			"is really nice today.\n"
+			"Bright, open skies make\n"
+			"for some good visibility\n"
+			"and safe, carefree flying.");
+		close;
+	case 3:
+		mes gettext("[Pilot]\n"
+			"You know, our captain's a\n"
+			"respectable guy. Him and\n"
+			"his brother are actually well\n"
+			"known in the aircraft industry.\n"
+			"Who knew reindeer made\n"
+			"such good captains?");
+		next;
+		mes gettext("[Pilot]\n"
+			"Just between you\n"
+			"and me, I gotta tell\n"
+			"you, that Santa was onto\n"
+			"something, getting reindeers\n"
+			"and elves to work for him.\n"
+			"The man must be a genius!");
+		close;
+	default:
+		mes gettext("[Pilot]\n"
+			"You know, this whole\n"
+			"piloting thing in the air,\n"
+			"it's rather new, you know?\n"
+			"Yeah, they got this Airship\n"
+			"operation in a hurry.");
+		next;
+		emotion e_omg;
+		mes gettext("[Pilot]\n"
+			"Still, they where real\n"
+			"serius, really thought\n"
+			"ahead. I mean, they had us\n"
+			"training while the Airships\n"
+			"were still being invented.\n"
+			"Isn't that freakin' crazy?!");
+		close;
+	}
+}
+
+airplane,50,66,5	script	Apple Merchant#airplane	86,{
+	mes gettext("[Fruitz]\n"
+		"Welcome to Fruitz's\n"
+		"Shop where you can\n"
+		"purchase Apples or grind\n"
+		"them to make Apple Juice.");
+	next;
+	switch (select(gettext("Buy Apples.:Make Apple Juice.:Why are you here?:Cancel."))) {
+	case 1:
+		mes gettext("[Fruitz]\n"
+			"Please enter the amount\n"
+			"of Apples that you wish to\n"
+			"buy. Each Apple is 15 zeny\n"
+			"and you can buy a maximum\n"
+			"of 500 at a time. Please enter\n"
+			" '0' to cancel your order.");
+		next;
+		while (1) {
+			input .@input;
+			set .@pay, .@input * 15;
+			if (.@input == 0) {
+				mes gettext("[Fruitz]\n"
+					"Thanks for stopping\n"
+					"by my shop. Farewell!\n"
+					"Come by anytime when\n"
+					"you feel like having an\n"
+					"Apple to snack on~");
+				close;
+			}
+			else if (.@input < 1 || .@input > 500) {
+				mes gettext("[Fruitz]\n"
+					"You've entered a number\n"
+					"higher than the maximum\n"
+					"value of 500. Please enter\n"
+					"the number of Apples you\n"
+					"wish to purchase again.");
+				next;
+			}
+			else {
+				mes gettext("[Fruitz]\n")
+					sprintf(gettext("A total of ^FF0000%$1d^000000 Apples\n"
+					"will cost you ^FF0000%$2d Zeny^000000 zeny."),
+					.@input, .@pay);
+				mes gettext("Would you like to continue?");
+				next;
+				if (select(gettext("Yes:No")) == 2) {
+					mes gettext("[Fruitz]\n"
+						"Thanks for stopping\n"
+						"by my shop. Farewell!\n"
+						"Come by anytime when\n"
+						"you feel like having an\n"
+						"Apple to snack on~");
+					close;
+				}
+				break;
+			}
+		}
+		if (Zeny < .@pay) {
+			mes gettext("[Fruitz]\n"
+				"I'm sorry, but you don't\n"
+				"have enough money to\n"
+				"purchase that many Apples.\n"
+				"Please check your zeny or\n"
+				"purchase fewer Apples.");
+			close;
+		}
+		else if (checkweight(512,.@input) == 0) {
+			mes gettext("[Fruitz]\n"
+				"Hmmm, I don't think\n"
+				"you've got enough room in\n"
+				"your inventory to carry this\n"
+				"many Apples. Why don't you free up some of your inventory space?");
+			close;
+		}
+		else {
+			set Zeny, Zeny - .@pay;
+			getitem 512,.@input; //Apple
+			mes gettext("[Fruitz]\n"
+				"Thanks for stopping by\n"
+				"my shop. I hope you enjoy\n"
+				"the flavor of these Apples~!");
+			close;
+		}
+	case 2:
+		mes gettext("[Fruitz]\n"
+			"Okay, I'll need\n"
+			"^FF00003 Apples and 1 Empty Bottle^000000\n"
+			"to make 1 Apple Juice for you.\n"
+			"Would you like to proceed?");
+		next;
+		switch (select(gettext("Yes:No"))) {
+		case 1:
+			if (countitem(512) < 3 || countitem(713) < 1) {
+				mes gettext("[Fruitz]\n"
+					"I'm sorry, but you don't\n"
+					"have enough materials to\n"
+					"create a bottle of Apple Juice.\n"
+					"Remember, I need 3 Apples\n"
+					"and 1 Empty Bottle to do it.");
+				close;
+			}
+			else {
+				mes gettext("[Fruitz]\n"
+					"Thank you,\n"
+					"please wait\n"
+					"just a moment.");
+				next;
+				mes gettext("^3355FF*Grind grind*\n"
+					"*Grind grind*\n"
+					"*Clang...!*^000000");
+				next;
+				delitem 512,3; //Apple
+				delitem 713,1; //Empty_Bottle
+				getitem 531,1; //Apple_Juice
+				mes gettext("[Fruitz]\n"
+					"There you go~\n"
+					"I hope you enjoy!\n"
+					"Please feel free to\n"
+					"stop by for your Apple\n"
+					"and Apple Juice needs\n"
+					"at anytime, adventurer~");
+				close;
+			}
+		case 2:
+			mes gettext("[Fruitz]\n"
+				"Thanks for stopping\n"
+				"by my shop. Farewell!\n"
+				"Come by anytime when\n"
+				"you feel like having an\n"
+				"Apple to snack on~");
+			close;
+		}
+	case 3:
+		mes gettext("[Fruitz]\n"
+			"I used to be a wandering\n"
+			"vagabond when, one day,\n"
+			"I took a nap and something\n"
+			"struck my head and awoke\n"
+			"me from my restful slumber.");
+		next;
+		mes gettext("[Fruitz]\n"
+			"It turns out that I was\n"
+			"sleeping beneath an apple\n"
+			"tree and that an apple fell\n"
+			"and hit me on the head.\n"
+			"I was dying of hunger and\n"
+			"was about to eat that Apple...");
+		next;
+		mes gettext("[Fruitz]\n"
+			"But suddenly, Kain, my old\n"
+			"friend from the mining days,\n"
+			"asked me to help him around\n"
+			"on the Airship. So I did, and\n"
+			"it was there where I found some\n"
+			"people playing the Dice game.");
+		next;
+		mes gettext("[Fruitz]\n"
+			"I was bored and curious\n"
+			"and ended up wagering that\n"
+			"single Apple in a game of\n"
+			"dice. But for some reason,\n"
+			"I had this incredible lucky\n"
+			"streak. One apple became two... ");
+		next;
+		mes gettext("[Fruitz]\n"
+			"Two became four and\n"
+			"before I knew it, I had\n"
+			"cornered the Apple market!\n"
+			"I won so many Apples, I just\n"
+			"started my own business here\n"
+			"on the Airship. Weird, huh?");
+		next;
+		mes gettext("[Fruitz]\n"
+			"So Apples are good\n"
+			"for you. They were\n"
+			"certainly very good\n"
+			"to me. Hahahahaah~!");
+		close;
+	case 4:
+		mes gettext("[Fruitz]\n"
+			"Thank you for\n"
+			"using my shop.\n"
+			"Farewell~");
+		close;
+	}
+}
+
+//============================================================ 
+//= International Airship Route
+//= ... -> Izlude -> Juno -> Rachel -> ...
+//============================================================ 
+
+airplane_01,243,73,0	script	#AirshipWarp-3	45,1,1,{
+	end;
+	
+OnTouch:
+	switch ($@airplanelocation2) {
+	case 0: warp "ra_fild12",292,204; end;
+	case 1: 
+		if(checkre(0))
+			warp "izlude",200,73;
+		else
+			warp "izlude",200,56;
+		end;
+	case 2: warp "yuno",12,261; end;
+	}
+
+OnInit:
+OnHide:
+	specialeffect EF_BASH;
+	disablenpc strnpcinfo(0);
+	end;
+	
+OnUnhide:
+	enablenpc strnpcinfo(0);
+	specialeffect EF_SUMMONSLAVE;
+	end;
+}
+
+airplane_01,243,29,0	duplicate(#AirshipWarp-3)	#AirshipWarp-4	45,1,1
+
+airplane_01,1,1,0	script	International_Airship	-1,{
+	end;
+OnInit:
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer25000:
+	mapannounce "airplane_01",gettext("We are heading to Izlude."),bc_map,"0x00ff00";
+	end;
+OnTimer50000:
+	mapannounce "airplane_01",gettext("We will arrive in Izlude shortly."),bc_map,"0x00ff00";
+	end;
+OnTimer60000:
+	set $@airplanelocation2,1;
+	donpcevent "#AirshipWarp-3::OnUnhide";
+	donpcevent "#AirshipWarp-4::OnUnhide";
+	mapannounce "airplane_01",gettext("Welcome to Izlude. Have a safe trip."),bc_map,"0x00ff00";
+	end;
+OnTimer70000:
+	mapannounce "airplane_01",gettext("We are currently in Izlude. The Airship will take off shortly."),bc_map,"0x00ff00";
+	end;
+OnTimer80000:
+	donpcevent "#AirshipWarp-3::OnHide";
+	donpcevent "#AirshipWarp-4::OnHide";
+	mapannounce "airplane_01",gettext("The Airship is now taking off. Our next destination is Juno."),bc_map,"0x70dbdb";
+	end;
+OnTimer105000:
+	mapannounce "airplane_01",gettext("We are heading to Juno."),bc_map,"0x70dbdb";
+	end;
+OnTimer130000:
+	mapannounce "airplane_01",gettext("We will arrive in Juno shortly."),bc_map,"0x70dbdb";
+	end;
+OnTimer140000:
+	set $@airplanelocation2,2;
+	donpcevent "#AirshipWarp-3::OnUnhide";
+	donpcevent "#AirshipWarp-4::OnUnhide";
+	mapannounce "airplane_01",gettext("Welcome to Juno. Have a safe trip."),bc_map,"0x70dbdb";
+	end;
+OnTimer150000:
+	mapannounce "airplane_01",gettext("We are currently in Juno. The Airship will leave shortly."),bc_map,"0x70dbdb";
+	end;
+OnTimer160000:
+	donpcevent "#AirshipWarp-3::OnHide";
+	donpcevent "#AirshipWarp-4::OnHide";
+	mapannounce "airplane_01",gettext("The Airship is leaving the ground. Our next destination is Rachel."),bc_map,"0xFF8200";
+	end;
+OnTimer185000:
+	mapannounce "airplane_01",gettext("We are heading to Rachel."),bc_map,"0xFF8200";
+	end;
+OnTimer210000:
+	mapannounce "airplane_01",gettext("We will arrive in Rachel shortly."),bc_map,"0xFF8200";
+	end;
+OnTimer220000:
+	set $@airplanelocation2,0;
+	donpcevent "#AirshipWarp-3::OnUnhide";
+	donpcevent "#AirshipWarp-4::OnUnhide";
+	mapannounce "airplane_01",gettext("Welcome to Rachel. Have a safe trip."),bc_map,"0xFF8200";
+	end;
+OnTimer230000:
+	mapannounce "airplane_01",gettext("We are currently in Rachel. The Airship will take off shortly."),bc_map,"0xFF8200";
+	end;
+OnTimer240000:
+	donpcevent "#AirshipWarp-3::OnHide";
+	donpcevent "#AirshipWarp-4::OnHide";
+	mapannounce "airplane_01",gettext("The Airship is now taking off. Our next destination is Izlude."),bc_map,"0x00ff00";
+	stopnpctimer;
+	set .moninv, .moninv + 1;
+	if (.moninv == 7) {
+		if (rand(1,3) == 3) {
+			donpcevent "Airship#airplane02::OnEnable";
+			end;
+		}
+		set .moninv, 0;
+	}
+	initnpctimer;
+	end;
+}
+
+airplane_01,240,64,5	script	Exit#airplane_011a::ExitAirplane01	857,{
+	end;
+}
+airplane_01,247,64,5	duplicate(ExitAirplane01)	Exit#airplane_011b	857
+airplane_01,240,40,1	duplicate(ExitAirplane01)	Exit#airplane_012a	857
+airplane_01,247,40,1	duplicate(ExitAirplane01)	Exit#airplane_012b	857
+
+airplane_01,250,58,2	script	Airship Staff#airplane01	67,{
+	mes gettext("[Airship Staff]\n"
+		"Welcome\n"
+		"to the Airship.\n"
+		"How may I help you?");
+	next;
+	switch (select(gettext("Using the Airship:Captain's Cabin:Facilities:Cancel"))) {
+	case 1:
+		mes gettext("[Airship Staff]\n"
+			"When you see a broadcast\n"
+			"announcing that we have\n"
+			"arrived at your destination,\n"
+			"please use one of the exits\n"
+			"located at the north and\n"
+			"south ends of the Airship.");
+		next;
+		mes gettext("[Airship Staff]\n"
+			"If you happen to miss\n"
+			"your stop, don't worry.\n"
+			"The Airship is constantly\n"
+			"en route and you'll get\n"
+			"another chance to arrive\n"
+			"to your intended destination.");
+		close;
+	case 2:
+		mes gettext("[Airship Staff]\n"
+			"The Captain's Cabin\n"
+			"is located at the front\n"
+			"of the Airship. There, you\n"
+			"can meet the captain and\n"
+			"the pilot of the Airship.");
+		close;
+	case 3:
+		mes gettext("[Airship Staff]\n"
+			"The Airship provides\n"
+			"various Mini Games for\n"
+			"the entertainment of all\n"
+			"our passengers. We invite\n"
+			"you to try your luck and skills\n"
+			"in the Airship's Mini Games~");
+		close;
+	case 4:
+		mes gettext("[Airship Staff]\n"
+			"Well, I hope you\n"
+			"your flight aboard\n"
+			"our Airships. Thank\n"
+			"you and have a good day.");
+		close;
+	}
+}
+
+airplane_01,50,66,5	script	Apple Merchant#air01	86,{
+	if (checkweight(1201,1) == 0) {
+		mes gettext("- Wait a minute !! -\n"
+			"- Currently you're carrying -\n"
+			"- too many items with you. -\n"
+			"- Please try again -\n"
+			"- after you loose some weight. -");
+		close;
+	}
+	mes gettext("[Meltz]\n"
+		"Welcome to Meltz's\n"
+		"Shop where you can\n"
+		"purchase Apples or grind\n"
+		"them to make Apple Juice.");
+	next;
+	switch (select(gettext("Buy Apples.:Make Apple Juice.:Cancel."))) {
+	case 1:
+		mes gettext("[Meltz]\n"
+			"Please enter the amount\n"
+			"of Apples that you wish to\n"
+			"buy. Each Apple is 15 zeny\n"
+			"and you can buy a maximum\n"
+			"of 500 at a time. Please enter\n"
+			"'0' to cancel your order.");
+		next;
+		while (1) {
+			input .@input;
+			set .@pay, .@input * 15;
+			if (.@input == 0) {
+				mes gettext("[Meltz]\n"
+					"Thanks for stopping\n"
+					"by my shop. Farewell!\n"
+					"Come by anytime when\n"
+					"you feel like having an\n"
+					"Apple to snack on~");
+				close;
+			}
+			else if (.@input < 1 || .@input > 500) {
+				mes gettext("[Meltz]\n"
+					"You've entered a number\n"
+					"higher than the maximum\n"
+					"value of 500. Please enter\n"
+					"the number of Apples you\n"
+					"wish to purchase again.");
+				next;
+			}
+			else {
+				mes gettext("[Meltz]\n")
+					sprintf(gettext("A total of ^FF0000%$1d^000000 Apples\n"
+					"will cost you ^FF0000%$2d^000000 zeny."),
+					.@input, .@pay);
+				mes gettext("Would you like to continue?");
+				next;
+				if (select(gettext("Yes:No")) == 2) {
+					mes gettext("[Meltz]\n"
+						"Thanks for stopping\n"
+						"by my shop. Farewell!\n"
+						"Come by anytime when\n"
+						"you feel like having an\n"
+						"Apple to snack on~");
+					close;
+				}
+				break;
+			}
+		}
+		if (Zeny < .@pay) {
+			mes gettext("[Meltz]\n"
+				"I'm sorry, you don't have\n"
+				"enough money with you.\n"
+				"Please check your funds or\n"
+				"purchase less Apples.");
+			close;
+		}
+		else if (checkweight(512,.@input) == 0) {
+			mes gettext("[Meltz]\n"
+				"Hmm, I don't think you've\n"
+				"got enough room to carry\n"
+				"this many Apples. You might\n"
+				"want to free up your inventory\n"
+				"space.");
+			close;
+		}
+		else {
+			set Zeny, Zeny - .@pay;
+			getitem 512,.@input; //Apple
+			mes gettext("[Meltz]\n"
+				"Thanks for stopping by\n"
+				"my shop. I hope you enjoy\n"
+				"the flavor of these Apples~!");
+			close;
+		}
+	case 2:
+		mes gettext("[Meltz]\n"
+			"Okay, I'll need\n"
+			"^FF00003 Apples and 1 Empty Bottle^000000\n"
+			"to make 1 Apple Juice for you.\n"
+			"Would you like to proceed?");
+		next;
+		switch (select(gettext("Yes:No"))) {
+		case 1:
+			if (countitem(512) < 3 || countitem(713) < 1) {
+				mes gettext("[Meltz]\n"
+					"I'm sorry, but you don't\n"
+					"have enough materials to\n"
+					"create a bottle of Apple Juice.\n"
+					"Remember, I need 3 Apples\n"
+					"and 1 Empty Bottle to do it.");
+				close;
+			}
+			else {
+				mes gettext("[Meltz]\n"
+					"Thank you, please wait.");
+				next;
+				mes gettext("^3355FF*Grind* *Grind*\n"
+					"*Grind* *Grind*\n"
+					"*Clang...!*^000000");
+				next;
+				delitem 512,3; //Apple
+				delitem 713,1; //Empty_Bottle
+				getitem 531,1; //Apple_Juice
+				mes gettext("[Meltz]\n"
+					"There you go~\n"
+					"Please come again.");
+				close;
+			}
+		case 2:
+			mes gettext("[Meltz]\n"
+				"Thanks for stopping\n"
+				"by my shop. Farewell!\n"
+				"Come by anytime when\n"
+				"you feel like having an\n"
+				"Apple to snack on~");
+			close;
+		}
+	case 3:
+		mes gettext("[Meltz]\n"
+			"Thanks for stopping\n"
+			"by my shop. Farewell!\n"
+			"Come by anytime when\n"
+			"you feel like having an\n"
+			"Apple to snack on~");
+		close;
+	}
+}
+
+airplane_01,221,158,2	script	Pilot#airplane_01	852,{
+	switch (rand(1,4)) {
+	case 1:
+		mes gettext("[Pilot]\n"
+			"Longitude, 131 degrees east.\n"
+			"Latitude, 37 degrees north.\n"
+			"We're right on course, captain.");
+		close;
+	case 2:
+		mes gettext("[Pilot]\n"
+			"Looks like a really\n"
+			"cloudy day. Always hard\n"
+			"to navigate when the skies\n"
+			"aren't clear. Guess we'll\n"
+			"need to amp the radar.");
+		close;
+	case 3:
+		mes gettext("[Pilot]\n"
+			"The Captain is a good\n"
+			"man and I can't think of\n"
+			"a finer person to command\n"
+			"this ship. Still, he's pretty\n"
+			"tough, a real slave driver.");
+		next;
+		mes gettext("[^ff0000Tarlock^000000]\n"
+			"^ff0000Hey...!^000000\n"
+			"^ff0000Less chit-chat^000000\n"
+			"^ff0000and more piloting!^000000");
+		next;
+		mes gettext("[Pilot]\n"
+			"R-right away, sir!\n"
+			"(See what I mean?)");
+		close;
+	default:
+		mes gettext("[Pilot]\n"
+			"This uniform is\n"
+			"really dapper, but\n"
+			"it's way too thick to\n"
+			"wear around the Airship.");
+		next;
+		mes gettext("[Pilot]\n"
+			"...\n"
+			"......\n"
+			"No one ever really\n"
+			"comes into this room.\n"
+			"And the captain IS a reindeer.\n"
+			"I could just strip to my boxers.");
+		next;
+		emotion e_omg;
+		mes gettext("[Pilot]\n"
+			"Oh...! Hello there!\n"
+			"E-e-enjoying your flight?!");
+		close;
+	}
+}
+
+airplane_01,83,61,2	script	Dianne#01airplane_01	72,2,2,{
+	mes gettext("[Dianne]\n"
+		"It's so weird!\n"
+		"I went to visit the\n"
+		"Airship Captain and\n"
+		"all I saw was this\n"
+		"weird reindeer. Oh!\n"
+		"Do you think that...");
+	close;
+
+OnTouch:
+	emotion e_sob;
+	end;
+}
+
+airplane_01,69,63,2	script	Mendel#01airplane_01	55,{
+	mes gettext("[Mendel]\n"
+		"As I expected, the\n"
+		"in-flight meals are\n"
+		"three star quality at best.\n"
+		"*Harrrumph* I really should\n"
+		"have brought my chef so that\n"
+		"I could enjoy a real meal.");
+	close;
+}
+
+airplane_01,71,31,2	script	Swordsman Shimizu#air_01	106,{
+	mes gettext("[Swordsman Shimizu]\n"
+		"Finally, after five\n"
+		"years of waiting...\n"
+		"I can have my revenge!");
+	next;
+	mes gettext("[Swordsman Shimizu]\n"
+		"I just...\n"
+		"Have to make sure that\n"
+		"I don't keep missing my\n"
+		"stop. But soon, very soon,\n"
+		"vengeance will be mine!");
+	close;
+}
+
+//============================================================ 
+//= Typing Challenge
+//============================================================ 
+airplane_01,32,61,4	script	Nils#ein	49,1,1,{
+	mes gettext("[Nils]\n"
+		"Welcome to the\n"
+		"^ff0000RO Typing Challenge^000000.\n"
+		"Would you like to play\n"
+		"a quick typing game?");
+	next;
+	switch (select(gettext("Play ^ff0000RO Typing Challenge^000000:Information:View Top Records:Cancel"))) {
+	case 1:
+		mes gettext("[Nils]\n"
+			"Okay, we have\n"
+			"a new challenger!\n"
+			"Enter the following\n"
+			"text as quickly as you\n"
+			"can without making any\n"
+			"mistakes! Let's start~!");
+		setarray .@line1_1$[0],	"^3cbcbccallipygian salacius lascivious^000000",
+					"^3cbcbcBy the power of^000000",
+					"^0000ffthkelfkskeldmsiejdlslehfndkelsheidl^000000",
+					"^3cbcbcburrdingdingdingdilidingdingdingphoohudaamb^000000",
+					"^3cbcbcCoboman no chikara-yumei na^000000",
+					"^3cbcbcI'm the king of All Weirdos! Now^000000",
+					"^3cbcbcYou give me no choice. I guess it's^000000";
+		setarray .@line1_2$[0],	"^3cbcbclicentious prurient concupiscent^000000",
+					"^3cbcbcp-po-poi-po-poi-poin-poing^000000",
+					"^3cbcbcskemd^000000",
+					"^3cbcbcandoorabambarambambambambamburanbamding^000000",
+					"^3cbcbcchikara-daiookii na chikara da ze!^000000",
+					"^3cbcbcyou know of my true power. Obey~!^000000",
+					"^3cbcbctime for me to reveal my secret...^000000";
+		setarray .@line1_3$[0],	"",
+					"^3cbcbcGOD-POING. I NEVER LOSE!^000000",
+					"",
+					"",
+					"^3cbcbcCOBO ON^000000",
+					"",
+					"";
+		setarray .@word1$[0],	"callipygian salacius lascivious licentious prurient concupiscent",
+					"By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE!",
+					"thkelfkskeldmsiejdlslehfndkelsheidlskemd",
+					"burrdingdingdingdilidingdingdingphoohudaambandoorabambarambambambambamburanbamding",
+					"Coboman no chikara-yumei na chikara-daiookii na chikara da ze! COBO ON",
+					"I'm the king of All Weirdos! Now you know of my true power. Obey~!",
+					"You give me no choice. I guess it's time for me to reveal my secret...";
+		setarray .@line2_1$[0],	"^3cbcbcuNflAPPaBLe LoVaBLe SeCreTs AnD^000000",
+					"^ff1493LiGhTsPeEd RiGhT SPEed LeFT TURn^000000",
+					"^ff1493hfjdkeldjsieldjshfjdjeiskdlefvbd^000000",
+					"^ff1493burapaphuralanderamduanbatuhiwooi^000000",
+					"^ff1493belief love luck grimace sweat rush^000000",
+					"^800080opeN, Open!op3n.openOpen0p3nOpEn0pen^000000",
+					"^3cbcbcfReeDoM ecstAcy JoUrnaliSm ArMplt^000000";
+		setarray .@line2_2$[0],	"^3cbcbcboWLIiNg aGaINST tHe KarMA of YoUtH^000000",
+					"^ff1493RiGhT BuRn OrIGInAL GaNgSteR SmACk^000000",
+					"",
+					"^ff1493kabamturubamdingding^000000",
+					"^ff1493folktale rodimus optimus bumblebee^000000",
+					"^800080`open'0Pen open? open!111OPENSESAME^000000",
+					"^3cbcbcDisCoverY hEaDaChE MoonbeAmS jUsTiCE^000000";
+		setarray .@word2$[0],	"uNflAPPaBLe LoVaBLe SeCreTs AnD boWLIiNg aGaINST tHe KarMA of YoUtH",
+					"LiGhTsPeEd RiGhT SPEed LeFT TURn RiGhT BuRn OrIGInAL GaNgSteR SmACk",
+					"hfjdkeldjsieldjshfjdjeiskdlefvbd",
+					"burapaphuralanderamduanbatuhiwooikabamturubamdingding",
+					"belief love luck grimace sweat rush folktale rodimus optimus bumblebee",
+					"opeN, Open!op3n.openOpen0p3nOpEn0pen`open'0Pen open? open!111OPENSESAME",
+					"fReeDoM ecstAcy JoUrnaliSm ArMplt DisCoverY hEaDaChE MoonbeAmS jUsTiCE";
+		setarray .@letters[0],	1300,
+					1250,
+					1180,
+					1380,
+					1740,
+					1440,
+					1450;
+		set .@wordtest, rand(7);
+		next;
+		mes gettext("[Nils]\n")
+			.@line1_1$[.@wordtest];
+		mes .@line1_2$[.@wordtest];
+		mes .@line1_3$[.@wordtest];
+		set .@start_time, gettime(3)*60*60 + gettime(2)*60 + gettime(1);
+		next;
+		input .@save1$;
+		set .@end_time, gettime(3)*60*60 + gettime(2)*60 + gettime(1);
+		set .@total_time, .@end_time - .@start_time;
+		mes gettext("[Nils]\n")
+			.@line2_1$[.@wordtest];
+		mes .@line2_2$[.@wordtest];
+		set .@start_time, gettime(3)*60*60 + gettime(2)*60 + gettime(1);
+		next;
+		input .@save2$;
+		set .@end_time, gettime(3)*60*60 + gettime(2)*60 + gettime(1);
+		set .@total_time, .@total_time + (.@start_time - .@end_time);
+		set .@tasoo, (.@letters[.@wordtest] / .@total_time) * 6;
+		if ((.@save1$ == .@word1$[.@wordtest]) && (.@save2$ == .@word2$[.@wordtest])) {
+			mes gettext("[Nils]\n")
+				sprintf(gettext("Your record is ^ff0000%$1d seconds^000000 and"
+				"the total letters are %$2d."), .@total_time, .@tasoo);
+			next;
+			if (.@tasoo >= 1300) {
+				mes gettext("[Nils]\n"
+					"Hmmm, this record isn't\n"
+					"humanly possible unless you\n"
+					"copy and paste the whole\n"
+					"sentence. Please play fairly\n"
+					"next time.");
+				close;
+			}
+			if (.@tasoo >= $050320_ein_typing) {
+				mes gettext("[Nils]\n")
+					sprintf(gettext("The previous top record was\n"
+					"made by ^0000ff%$1s^000000\n"
+					"with the total ^0000ff%$2d^000000 letters."),
+					$050320_minus1_typing$, $050320_ein_typing);
+				mes sprintf(gettext("However, ^ff0000%$1s^000000,\n"
+					"you made the new top record\n"
+					"this time. Congratulations!"),
+					strcharinfo(0));
+				set $050320_minus1_typing$, strcharinfo(0);
+				set $050320_ein_typing, .@tasoo;
+				close;
+			}
+			else {
+				mes gettext("[Nils]\n")
+					sprintf(gettext("^0000ff%$1s^000000"
+					"is the current"
+					"record holder with"
+					"a letter total of ^0000ff%$2d^000000"
+					"characters. Try to beat"
+					"that record next time~"),
+					$050320_minus1_typing$, $050320_ein_typing);
+				close;
+			}
+		}
+		else {
+			mes gettext("[Nils]\n"
+				"Oooh...\n"
+				"I'm sorry, but\n"
+				"you entered the\n"
+				"text incorrectly...");
+			close;
+		}
+	case 2:
+		mes gettext("[Nils]\n"
+			"The ^ff0000RO Typing Challenge^000000\n"
+			"is a game where you enter\n"
+			"the given text as quickly as you\n"
+			"can. The name of the top player\n"
+			"is recorded for posterity. If you\n"
+			"want fame, here's your chance!");
+		next;
+		mes gettext("[Nils]\n"
+			"I'd just like to let\n"
+			"you know that you type\n"
+			"all the text that you see\n"
+			"in the single input line that\n"
+			"you're given. So don't press\n"
+			"the enter key, just click 'OK.'");
+		close;
+	case 3:
+		mes gettext("[Nils]\n")
+			sprintf(gettext("^0000ff%$1s^000000"
+			"is the current"
+			"record holder with"
+			"a letter total of ^0000ff%$2d^000000"
+			"characters. Try to beat"
+			"that record next time~"),
+			$050320_minus1_typing$, $050320_ein_typing);
+		close;
+	case 4:
+		mes gettext("[Nils]\n"
+			"Feel free to take on the\n"
+			"^ff0000RO Typing Challenge^000000\n"
+			"anytime. I'll be here~");
+		close;
+	}
+}
+
+//============================================================ 
+//= Apple Gambling
+//============================================================ 
+airplane_01,33,68,4	script	Clarice	74,{
+	mes gettext("[Clarice]\n"
+		"Hi, I'm Clarice~\n"
+		"How would you like\n"
+		"to wager some Apples\n"
+		"in a friendly game of Dice?");
+	next;
+	callfunc "applegamble",gettext("Clarice");
+	end;
+}
+
+function	script	applegamble	{
+
+	switch (select(gettext("Play Dice Game:Learn Dice Game Rules:Cancel"))) {
+	case 3:
+		mes "["+getarg(0)+"]";
+		mes gettext("I'm up for a game of\n"
+			"dice whenever you feel\n"
+			"like it. Just talk to me if\n"
+			"you ever get hit with the\n"
+			"sudden urge to gamble, kay?");
+		close;
+	case 2:
+		mes "["+getarg(0)+"]";
+		mes gettext("The rules for the Dice game\n"
+			"are pretty simple. First, you\n"
+			"place a bet by wagering Apples.\n"
+			"You can bet a maximum of 50\n"
+			"Apples at a time. To keep things\n"
+			"legal, I can only accept Apples.");
+		next;
+		mes "["+getarg(0)+"]";
+		mes gettext("But hey, if all that zeny\n"
+			"is burning a hole in your\n"
+			"pocket, head over to Fruitz\n"
+			"and you can buy as many\n"
+			"Apples as you want, playah~");
+		next;
+		mes "["+getarg(0)+"]";
+		mes gettext("Now, we begin with me\n"
+			"rolling two 6-sided dice.\n"
+			"When it's your turn, you'll\n"
+			"roll two 6-sided dice. After\n"
+			"that, both of us will have the\n"
+			"option of rolling a third die.");
+		next;
+		mes "["+getarg(0)+"]";
+		mes gettext("Now here's the important\n"
+			"thing. If your total is higher\n"
+			"than 12, you'll bust, meaning\n"
+			"that you lose. Otherwise, the\n"
+			"person with the higher total\n"
+			"is the winner. Got it?");
+		next;
+		mes "["+getarg(0)+"]";
+		mes gettext("Now, you'll be the first\n"
+			"to decide whether or not\n"
+			"you'll roll the third die. Then,\n"
+			"depending on your result, I'll\n"
+			"roll my third die... Or maybe not.");
+		next;
+		mes "["+getarg(0)+"]";
+		mes gettext("When you win, you'll\n"
+			"receive twice as many\n"
+			"Apples as you wagered.\n"
+			"But if we happen to tie, you\n"
+			"get the Apples that you bet\n"
+			"returned to you. Fair, right?");
+		close;
+	case 1:
+		break;
+	}
+	mes "["+getarg(0)+"]";
+	mes gettext("Ooh, so you'll play with\n"
+		"me? Great! How many\n"
+		"Apples would you like to bet?\n"
+		"Remember, you can wager\n"
+		"up to 50 Apples. If you'd like\n"
+		"to cancel, please enter '0'.");
+	next;
+	while(1) {
+		input .@amount;
+		if (.@amount == 0) {
+			mes "["+getarg(0)+"]";
+			mes gettext("Changed your mind?\n"
+				"I understand. Well then,\n"
+				"I hope we can play sometime.");
+			close;
+		}
+		else if (.@amount < 1 || .@amount > 50) {
+			mes "["+getarg(0)+"]";
+			mes gettext("You can't bet more than\n"
+				"50 Apples. Remember, we\n"
+				"need to keep these stakes\n"
+				"reasonable. Please enter\n"
+				"a value no greater than 50.");
+			next;
+			continue;
+		}
+		mes "["+getarg(0)+"]";
+		mes sprintf(gettext("So you'll be"
+			"betting ^FF0000%$1d^000000 Apples."
+			"Is that right?"),
+			.@amount);
+		next;
+		if (select(gettext("Yes:No")) == 2) {
+			mes "["+getarg(0)+"]";
+			mes gettext("Mm, made a mistake?\n"
+				"Alright, please enter the\n"
+				"number of Apples you\n"
+				"wish to place in this bet");
+			next;
+			continue;
+		}
+		if (countitem(512) <.@amount) {
+			mes gettext("I'm sorry, but you\n"
+				"don't seem to have\n"
+				"enough Apples for this\n"
+				"bet... You can't gamble\n"
+				"if you can't play, you know.");
+			next;
+			continue;
+		}
+		delitem 512,.@amount;
+		mes "["+getarg(0)+"]";
+		mes gettext("Good!\n"
+			"Now we can start\n"
+			"this game! I'll roll first~");
+		break;
+	}
+	mes gettext("^3355FF*Rolling and rumbling*^000000");
+	next;
+	set .@giveapple, .@amount*2;
+	set .@table1, rand(1,6);
+	set .@table2, rand(1,6);
+	set .@tablesub, .@table1 + .@table2;
+	set .@tabletotal, .@tablesub;
+	mes "["+getarg(0)+"]";
+	mes sprintf(gettext("I got a ^0000FF%$1d^000000 and a ^0000FF%$2d^000000."
+		"That's a total of ^0000FF%$3d^000000."),
+		.@table1, .@table2, .@tablesub);
+	mes sprintf(gettext("^FF0000%$1s^000000, now it's your turn."),
+		strcharinfo(0));
+	next;
+	select(gettext("Cast Dice."));
+	mes gettext("^3355FF*Rolling and rumbling*^000000");
+	set .@player1, rand(1,6);
+	set .@player2, rand(1,6);
+	set .@playersub, .@player1 + .@player2;
+	if (.@playersub > 9 && .@amount > 39) {
+		set .@player1, rand(1,6);
+		set .@player2, rand(1,6);
+		set .@playersub, .@player1 + .@player2;
+	}
+	set .@playertotal, .@playersub;
+	next;
+	mes "["+getarg(0)+"]";
+	mes sprintf(gettext("^FF0000%$1s^000000, you have ^FF0000%$2d^000000 and ^FF0000%$3d^000000. The total is ^FF0000%$4d^000000 ."),
+		strcharinfo(0), .@player1, .@player2, .@playersub);
+	next;
+	mes "["+getarg(0)+"]";
+	if(.@playersub == .@tablesub) {
+		mes sprintf(gettext("Currently my total is ^0000FF%$1d^000000 and ^FF0000%$2s^000000, your total is ^FF0000%$3d^000000. We are making an even game. Would you like to cast dice again?"),
+		.@tablesub, strcharinfo(0), .@playersub);
+	} else if (.@playersub > .@tablesub) {
+		mes sprintf(gettext("Currently my total is ^0000FF%$1d^000000 and ^FF0000%$2s^000000, your total is ^FF0000%$3d^000000. ^FF0000%$4s^000000, you are currently winning this game. Would you like to cast dice again?"),
+			.@tablesub, strcharinfo(0), .@playersub, strcharinfo(0));
+	} else if(.@tablesub > .@playersub) {
+		mes sprintf(gettext("Currently my total is ^0000FF%$1d^000000 and ^FF0000%$2s^000000, your total is ^FF0000%$3d^000000. I am winning this game. Would you like to cast dice again?"),
+			.@tablesub, strcharinfo(0), .@playersub);
+	}
+	next;
+	switch (select(gettext("Cast dice.:Cancel."))) {
+	case 1:
+		mes gettext("^3355FF*Rolling and rumbling*^000000");
+		set .@player3, rand(1,6);
+		set .@playertotal, .@playertotal + .@player3;
+		next;
+		mes "["+getarg(0)+"]";
+		if (.@playertotal > 12) {
+			mes sprintf(gettext("^FF0000%$1s^000000, you got ^FF0000%$2d^000000 and the total is now ^FF0000%$3d^000000. You lost this game. I am sorry but please try again."),
+				strcharinfo(0), .@player3, .@playertotal);
+			close;
+		}
+		else if (.@playertotal < .@tablesub) {
+			mes sprintf(gettext("^FF0000%$1s^000000, you got ^FF0000%$2d^000000 and the total is now ^FF0000%$3d^000000. Even though you casted dice again, still your total is smaller than mine. You lost the game. I am sorry and please try again."),
+				strcharinfo(0), .@player3, .@playertotal);
+			close;
+		}
+		else if (.@playertotal == .@tablesub) {
+			if (.@tablesub > 8) {
+				mes sprintf(gettext("^FF0000%$1s^000000, you got ^FF0000%$2d^000000 and the total is now ^FF0000%$3d^000000. I don't want to take any risk, let's end this game in a draw. Let's play again some other time~"),
+					strcharinfo(0), .@player3, .@playertotal);
+				close2;
+				getitem 512,.@amount; //Apple
+				end;
+			}
+		}
+		else {
+			mes sprintf(gettext("^FF0000%$1s^000000, you got ^FF0000%$2d^000000 and the total is now ^FF0000%$3d^000000. Now it is my turn."),
+				strcharinfo(0), .@player3, .@playertotal);
+		}
+		break;
+	case 2:
+		mes "["+getarg(0)+"]";
+		if (.@playersub > .@tablesub) {
+			mes gettext("I see, you don't want to take risk of losing the game. Okay, let me cast dice again.");
+		}
+		else if (.@playersub == .@tablesub) {
+			if (.@tablesub > 8) {
+				mes gettext("I see, you don't want to take risk of losing this game. Neither do I, let's end this game in a draw. Let's play again some other time~");
+				close2;
+				getitem 512,.@amount; //Apple
+				end;
+			}
+			mes gettext("Alright.\n"
+				"Let me cast the dice again.");
+		}
+		else {
+			mes gettext("It couldn't hurt to try.\n"
+				"Well, I win this time.\n"
+				"I'm sorry, let's try play\n"
+				"again sometime.");
+			close;
+		}
+		break;
+	}
+	next;
+	mes gettext("^3355FF*Rolling and rumbling*^000000");
+	set .@table3, rand(1,6);
+	set .@tabletotal, .@tabletotal + .@table3;
+	next;
+	mes "["+getarg(0)+"]";
+	if (.@tabletotal > 12) {
+		mes sprintf(gettext("I got ^0000FF%$1d^000000 and the total is now ^0000FF%$2d^000000. I lost this game since my total exceeded 12. Let me give you my apples. Congratulations, that was a great game."),
+			.@table3, .@tabletotal);
+		close2;
+		getitem 512,.@giveapple; //Apple
+		end;
+	}
+	else if (.@playertotal > .@tabletotal) {
+		mes sprintf(gettext("I got ^0000FF%$1d^000000 and the total is now ^0000FF%$2d^000000. With total ^FF0000%$3d^000000 you won this game, ^FF0000%$4s^000000. Let me give you my apples. It was a great game and I hope we will play again some other time."),
+			.@table3, .@tabletotal, .@playertotal, strcharinfo(0));
+		close2;
+		getitem 512,.@giveapple; //Apple
+		end;
+	}
+	else if (.@playertotal == .@tabletotal) {
+		mes sprintf(gettext("I got ^0000FF%$1d^000000 and the total is now ^0000FF%$2d^000000. With total ^FF0000%$3d^000000 this game came out even, ^FF0000%$4s^000000. Let me give you your apple back. It was a great game and I hope we will play again some other time."),
+			.@table3, .@tabletotal, .@playertotal, strcharinfo(0));
+		close2;
+		getitem 512,.@amount; //Apple
+		end;
+	}
+	else if (.@playertotal < .@tabletotal) {
+		mes sprintf(gettext("I got ^0000FF%$1d^000000 and the total is now ^0000FF%$2d^000000. With total ^FF0000%$3d^000000 you lost this game, ^FF0000%$4s^000000. I am sorry but please try again."),
+			.@table3, .@tabletotal, .@playertotal, strcharinfo(0));
+		close;
+	}
+}

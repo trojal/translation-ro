@@ -15,10 +15,10 @@
 ra_fild12,295,208,0	script	toairplane#rachel	45,1,1,{
 	end;
 OnTouch:
-	mes ngettext("To use the airship, you are required to pay %d zeny or a Free Airship Ticket.", 1200);
-	mes gettext("Would you like to use the service?");
+	mes gettext("To use the airship, you are required to pay 1,200 zeny or a Free Airship Ticket.\n"
+		"Would you like to use the service?");
 	next;
-	if (select(gettext("Yes") + ":" + gettext("No")) == 1) {
+	if (select(gettext("Yes:No")) == 1) {
 		if (countitem(7311) > 0) {
 			delitem 7311,1; //Free_Flying_Ship_Ticket
 			warp "airplane_01",245,60;
@@ -29,8 +29,8 @@ OnTouch:
 			warp "airplane_01",245,60;
 			end;
 		}
-		mes gettext("I am sorry, but you do not have enough money.");
-		mes ngettext("Please remember, you are required to pay %d zeny to use the service.", 1200);
+		mes gettext("I am sorry, but you do not have enough money.\n"
+			"Please remember, you are required to pay 1,200 zeny to use the service.");
 		close;
 	}
 	mes gettext("Thank you, please come again.");

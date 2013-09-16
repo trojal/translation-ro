@@ -13,14 +13,20 @@
 //============================================================ 
 
 lhz_airport,143,43,5	script	Airport Staff#lhz_air1a::lhz_airport1	90,{
-	mes gettext("[Airport Staff]");
-	mes gettext("Welcome to the Lighthalzen Airport, where we offer nonstop flights to Einbroch, Juno and Hugel.");
+	mes gettext("[Airport Staff]\n"
+		"Welcome to the\n"
+		"Lighthalzen Airport,\n"
+		"where we offer nonstop\n"
+		"flights to Einbroch, Juno and Hugel.");
 	next;
-	if (select(gettext("Board the Airship.") + ":" + gettext("Cancel.")) == 1) {
-		mes gettext("[Airport Staff]");
-		mes ngettext("The boarding fee is %d zeny, but you can waive the fee if you redeem a Free Ticket for Airship.", 1200);
+	if (select(gettext("Board the Airship.:Cancel.")) == 1) {
+		mes gettext("[Airport Staff]\n"
+			"The boarding fee is\n"
+			"1,200 zeny, but you can\n"
+			"waive the fee if you redeem\n"
+			"a Free Ticket for Airship.");
 		next;
-		if (select(gettext("Yes") + ":" + gettext("No")) == 1) {
+		if (select(gettext("Yes:No")) == 1) {
 			if (countitem(7311) > 0) {
 				delitem 7311,1; //Free_Flying_Ship_Ticket
 				warp "lhz_airport",148,51;
@@ -31,14 +37,17 @@ lhz_airport,143,43,5	script	Airport Staff#lhz_air1a::lhz_airport1	90,{
 				warp "lhz_airport",148,51;
 				end;
 			}
-			mes gettext("[Airship Staff]");
-			mes ngettext("I'm sorry, but you don't have %d zeny to pay for the boarding fee.", 1200);
+			mes gettext("[Airship Staff]\n"
+				"I'm sorry, but you don't\n"
+				"have 1,200 zeny to pay\n"
+				"for the boarding fee.");
 			close;
 		}
 	}
-	mes gettext("[Airport Staff]");
-	mes gettext("Thank you and please come again.");
-	mes gettext("Have a good day~");
+	mes gettext("[Airport Staff]\n"
+		"Thank you and\n"
+		"please come again.\n"
+		"Have a good day~");
 	close;
 }
 
@@ -46,21 +55,29 @@ lhz_airport,158,43,5	duplicate(lhz_airport1)	Airship Staff#lhz_air1b	90
 lhz_airport,126,43,5	duplicate(lhz_airport1)	Airship Staff#lhz_air1c	90
 
 lhz_airport,143,49,3	script	Arrival Staff#lhz_air2a::lhz_airport2	90,{
-	mes gettext("[Arrival Staff]");
-	mes gettext("Welcome to Lighthalzen Airport.");
-	mes gettext("Please let me guide you to the main terminal if you are arriving from your flight. Otherwise, please board the departing Airship to reach your intended destination.");
+	mes gettext("[Arrival Staff]\n"
+		"Welcome to Lighthalzen Airport.\n"
+		"Please let me guide you to the\n"
+		"main terminal if you are arriving from your flight. Otherwise, please\n"
+		"board the departing Airship to reach your intended destination.");
 	next;
-	if (select(gettext("Exit to main terminal.") + ":" + gettext("Cancel.")) == 1) {
-		mes gettext("[Arrival Staff]");
-		mes gettext("Once you're in the main terminal, you will need to pay the fee again to board an Airship. You should only exit if Lighthalzen is your intended destination. Shall we proceed to the main terminal?");
+	if (select(gettext("Exit to main terminal.:Cancel.")) == 1) {
+		mes gettext("[Arrival Staff]\n"
+			"Once you're in the main terminal, you will need to pay the fee again\n"
+			"to board an Airship. You should\n"
+			"only exit if Lighthalzen is your intended destination. Shall we\n"
+			"proceed to the main terminal?");
 		next;
-		if (select(gettext("Yes") + ":" + gettext("No")) == 1) {
+		if (select(gettext("Yes:No")) == 1) {
 			warp "lhz_airport",142,40;
 			end;
 		}
 	}
-	mes gettext("[Arrival Staff]");
-	mes gettext("Alright, thank you for your patronage and I hope you have a pleasant flight~");
+	mes gettext("[Arrival Staff]\n"
+		"Alright, thank you\n"
+		"for your patronage\n"
+		"and I hope you have\n"
+		"a pleasant flight~");
 	close;
 }
 

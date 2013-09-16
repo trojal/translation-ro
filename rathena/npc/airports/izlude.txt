@@ -1,4 +1,4 @@
-/===== rAthena Script ======================================= 
+//===== rAthena Script ======================================= 
 //= Izlude Airport NPCs
 //===== By: ================================================== 
 //= rAthena Dev Team
@@ -13,21 +13,21 @@
 //============================================================ 
 
 -	script	::Airship_Staff_izlude	-1,{
-	mes gettext("[Airship Staff]");
-	mes gettext("Welcome! Would you like\n" +
-		"to board the Airship that\n" +
-		"departs on the flight wich stops\n" +
+	mes gettext("[Airship Staff]\n"
+		"Welcome! Would you like\n"
+		"to board the Airship that\n"
+		"departs on the flight wich stops\n"
 		"in Juno and Rachel?");
 	next;
-	if (select(gettext("Board the Airship to Juno/Rachel.") + ":" + gettext("Cancel.")) == 1) {
-		mes gettext("[Airship Staff]");
-		mes gettext("The boarding fee is\n" +
-			"1,200 zeny. However, this\n" +
-			"charged is waived if you use\n" +
-			"a Free Ticket for Airship. Now,\n" +
+	if (select(gettext("Board the Airship to Juno/Rachel.:Cancel.")) == 1) {
+		mes gettext("[Airship Staff]\n"
+			"The boarding fee is\n"
+			"1,200 zeny. However, this\n"
+			"charged is waived if you use\n"
+			"a Free Ticket for Airship. Now,\n"
 			"would you still like to board?");
 		next;
-		if (select(gettext("Yes") + ":" + gettext("No")) == 1) {
+		if (select(gettext("Yes:No")) == 1) {
 			if (countitem(7311) > 0) {
 				delitem 7311,1; //Free_Flying_Ship_Ticket
 				warp "airplane_01",244,58;
@@ -38,16 +38,16 @@
 				warp "airplane_01",244,58;
 				end;
 			}
-			mes gettext("[Airship Staff]");
-			mes gettext("I'm sorry, but you don't\n" +
-				"have 1,200 zeny to pay\n" +
+			mes gettext("[Airship Staff]\n"
+				"I'm sorry, but you don't\n"
+				"have 1,200 zeny to pay\n"
 				"for the boarding fee.");
 			close;
 		}
 	}
-	mes gettext("[Airship Staff]");
-	mes gettext("Thank you and\n" +
-		"please come again.\n" +
+	mes gettext("[Airship Staff]\n"
+		"Thank you and\n"
+		"please come again.\n"
 		"Have a good day~");
 	close;
 }
